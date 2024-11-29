@@ -1,0 +1,27 @@
+// Seleziona il form e il messaggio di risposta
+const form = document.getElementById('preferencesForm');
+const responseMessage = document.getElementById('responseMessage');
+
+// Aggiunge un evento per gestire il submit
+form.addEventListener('submit', (event) => {
+    event.preventDefault(); // Evita il refresh della pagina
+
+    // Raccolta dei dati
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    console.log("Dati raccolti:", data);
+
+    // Salva i dati nel localStorage (solo sul dispositivo dell'utente)
+    localStorage.setItem('christmasDinnerPreferences', JSON.stringify(data));
+
+    // Mostra il messaggio di ringraziamento
+    responseMessage.classList.remove('hidden');
+    responseMessage.innerHTML = `
+        <p>Grazie per aver inviato le tue preferenze! 🎉</p>
+        <p class="response-highlight">I tuoi dati sono tenuti al sicuro dall'agente segreto delle poste di Mortara. 🕵️‍♂️🎅</p>
+    `;
+
+    // Nasconde il form dopo l'invio
+    form.style.display = 'none';
+});
+
